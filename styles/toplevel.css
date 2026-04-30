@@ -1,0 +1,22 @@
+
+body {
+  background-color: linen;
+}
+
+h1 {
+  color: navy;
+}
+
+img{
+  width:300px;
+  height:200px;
+  border:10px solid green;
+  color:white;
+  border-radius:20px;
+}
+
+figcaption{
+  width: 315px;
+  text-align: left;
+  margin-left: 50px;
+}
