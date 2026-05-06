@@ -50,13 +50,13 @@ To build a modern, centralized and user friendly web application for PNW hikers 
 | Stakeholder | Role | Contact Information |
 | :--- | :--- | :--- |
 | Instructor: Poul | Client | |
-| Users | Hikers | Contact form |
+| Users | Hikers | Contact form 
 | Team members | Developers | Support form |
 
 ## 7. Roles and Responsibilities
 | Role | Assigned To | Responsibility |
 | :--- | :--- | :--- |
-| Project Sponsor | Matthew | Provide funding and executive support |
+| Project Sponsor | Matthew | Executive support |
 | Project Manager | Sesilina | Oversee project execution and reporting |
 | Team Lead / Key Members | Moises, Hazel, Karim | Complete project tasks as assigned |
 
