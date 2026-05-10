@@ -15,7 +15,7 @@ Team NULL exists to provide modern and efficient solutions to client problems th
 
 | Team Member | Role/Title | Responsibilities | Skills/Expertise |
 | :--- | :--- | :--- | :--- |
-| **Karim** | Multitasker | General help and assistance. | A little bit of everything |
+| **Karim** | Senior Research Consultant | UX Design| Javascript Python Security |French Translator |Relevance Judge
 | **Hazel** | Developer | Participates in the development of the project. | Understands functionality of code / programs |
 | **Moises** | Multitasker | Stay on top of assignments, communication | A bit of everything |
 | **Matthew** | Lead | Planning, Communication, Development | Leadership, General computer knowledge |
