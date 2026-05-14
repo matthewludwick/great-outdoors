@@ -1,0 +1,26 @@
+name: Task Issue
+description: Create a development task (child of feature)
+title: "[TASK]: "
+labels: ["task"]
+
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: What needs to be done?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Time Estimate (hours)
+      placeholder: "1-3 hours"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Parent Feature Issue
+      description: "Example: #5 User Login System"
+    validations:
+      required: true

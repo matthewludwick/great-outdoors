@@ -1,0 +1,47 @@
+name: Feature Issue
+description: Create a new feature (parent issue)
+title: "[Product Backlog]: "
+labels: ["Product Backlog"]
+
+body:
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      description: As a user, I want..., so that...
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain the feature and its purpose
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Requirement 1
+        - [ ] Requirement 2
+    validations:
+      required: true
+
+  - type: input
+    id: estimate
+    attributes:
+      label: Time Estimate (hours or story points)
+      placeholder: "6-10 hours or 5 points"
+    validations:
+      required: true
+
+  - type: input
+    id: linked_tasks
+    attributes:
+      label: Linked Task Issues (optional)
+      description: "Example: #12, #13"
+    validations:
+      required: false
