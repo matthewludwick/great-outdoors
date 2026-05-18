@@ -1,30 +1,127 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Welcome to the Great Outdoors!</title>
-<link rel="stylesheet" type="text/css" href="styles/toplevel.css">
-<script src="scripts/myscripts.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Outdoors — Pacific Northwest Hiking</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+  <div id="site-header"></div>
 
-<h1>Welcome to the Great Outdoors!</h1>
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+<<<<<<< HEAD
+      <img class="hero-bg" src="images/hero.jpg" alt="Pacific Northwest mountains">
+=======
+      <img class="hero-bg" src="images/hero.svg" alt="Pacific Northwest mountains">
+>>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>Explore the Pacific Northwest</h1>
+        <p>Discover pristine trails while preserving nature for future generations</p>
+        <div class="search-wrap">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <span class="icon-left" id="search-icon" aria-hidden="true"></span>
+              <input id="search-input" class="search-input" type="text" placeholder="Search for trails…" autocomplete="off">
+            </div>
+            <button id="search-btn" class="btn-search" type="button">
+              <span>Search</span>
+              <span id="search-arrow" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Safety banner -->
+    <section id="safety" class="safety-banner">
+      <div class="container-7xl">
+        <div class="intro">
+          <span id="safety-shield" aria-hidden="true"></span>
+          <div>
+            <h2>Trail Safety &amp; Leave No Trace</h2>
+            <p>Our trails are a shared treasure. Help protect them for future generations.</p>
+          </div>
+        </div>
 
-<img src = "images/outdoors.jpg" alt="Great Outdoors" onmouseover="showAlt(this)" onmouseout="hideAlt(this)">
-<figcaption>Your Adventure Awaits!</figcaption>
+        <div class="cards">
+          <div class="card">
+            <div class="head">
+              <span id="leaf-icon" aria-hidden="true"></span>
+              <h3><a href="safety.html">Leave No Trace Principles</a></h3>
+            </div>
+            <ul>
+              <li>• Pack out all trash, including food scraps</li>
+              <li>• Stay on designated trails to prevent erosion</li>
+              <li>• Keep wildlife wild - no feeding</li>
+              <li>• Respect other visitors and trail etiquette</li>
+            </ul>
+          </div>
 
-<p id="alttext" style="font-size:50px"> <p>
+          <div class="card">
+            <div class="head">
+              <span id="pin-icon" aria-hidden="true"></span>
+              <h3>Spring Season Advisory</h3>
+            </div>
+            <ul>
+              <li>• Trails may have snow at higher elevations</li>
+              <li>• Check weather and trail conditions before you go</li>
+              <li>• Carry <a href="safety.html">the 10 Essentials</a> on every hike</li>
+              <li>• Share your hiking plan with someone</li>
+            </ul>
+          </div>
+        </div>
 
-<ul>
-<li><a href="mountain.html">Climb the Mountain</a></li>
-<li><a href="forest.html">Wander the Forest</a></li>
-<li><a href="falls.html">See the Falls</a></li>
-<li><a href="ferry.html">Ride the Ferry</a></li>
-<li><a href="lake.html">Walk Around the Lake</a></li>
-<li><a href="park.html">Read in the Park</a></li>
-</ul>
+        <div class="cta">
+          <a class="btn btn-light btn-large" href="safety.html">View Complete Safety Guide &amp; The 10 Essentials</a>
+        </div>
+      </div>
+    </section>
 
+    <!-- Results -->
+    <div id="results">
+      <section id="discover" class="section-cream">
+        <div class="container-7xl">
+          <div class="section-head">
+            <h2>Hidden Gems</h2>
+            <p>Discover lesser-known trails to help reduce congestion on popular routes</p>
+          </div>
+          <div id="hidden-gems-wrap"></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container-7xl">
+          <h2 class="mb-2">Popular Trails</h2>
+          <div id="popular-wrap"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Support -->
+    <section class="section-cream">
+      <div class="container-3xl">
+        <div class="support-box">
+          <span id="heart-icon" class="heart" aria-hidden="true"></span>
+          <h2>Support Us</h2>
+          <p>
+            Help us keep this site running and continue providing valuable trail information for the
+            hiking community. Your support helps cover hosting, maintenance, and development costs so
+            we can keep bringing you the best trail guides and resources.
+          </p>
+          <button class="btn btn-light" type="button">Make a Donation</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/trails.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

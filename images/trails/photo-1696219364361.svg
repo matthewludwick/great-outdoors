@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9a87a"/>
+      <stop offset="100%" stop-color="#e7c18c"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff9e6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ffe4a3" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd47a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="720" fill="url(#sky)"/>
+  <circle cx="760" cy="198" r="120" fill="url(#sun)"/>
+  <circle cx="760" cy="198" r="42" fill="#fff8dc" opacity="0.85"/>
+  <path d="M 0,720 L 0,396 L 0,322 L 180,305 L 360,249 L 540,353 L 720,369 L 900,270 L 1080,269 L 1080,396 L 1080,720 Z" fill="#67513a" opacity="0.7"/>
+  <path d="M 0,720 L 0,489 L 0,385 L 154,453 L 308,364 L 462,413 L 616,421 L 770,480 L 924,394 L 1078,391 L 1080,489 L 1080,720 Z" fill="#554230" opacity="0.85"/>
+  <path d="M 0,720 L 0,590 L 0,590 L 135,570 L 270,513 L 405,502 L 540,518 L 675,520 L 810,566 L 945,575 L 1080,583 L 1080,590 L 1080,720 Z" fill="#4a3a2a"/>
+  <rect x="0" y="0" width="1080" height="720" fill="url(#sky)" opacity="0"/>
+  <text x="540" y="670" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600"
+        fill="#fff" opacity="0.92" style="paint-order:stroke;stroke:#000;stroke-width:3px;stroke-opacity:0.45">
+    Valley overlook
+  </text>
+</svg>

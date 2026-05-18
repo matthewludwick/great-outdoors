@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — The Great Outdoors</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-wrap">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="admin-head">
+      <div class="inner">
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p>Trail management and statistics</p>
+        </div>
+        <a class="btn btn-primary" href="admin-trails.html">
+          <span id="ic-settings" aria-hidden="true"></span>
+          Manage Trails
+        </a>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <!-- Stats overview -->
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <!-- Trail breakdown -->
+      <div class="breakdown-grid">
+        <div class="panel" id="difficulty-panel">
+          <h2>Difficulty Breakdown</h2>
+          <div id="difficulty-rows"></div>
+        </div>
+        <div class="panel">
+          <h2>Trail Categories</h2>
+          <div class="cat-list" id="categories"></div>
+        </div>
+      </div>
+
+      <!-- All trails table -->
+      <div class="panel" style="margin-top:1.5rem">
+        <h2 class="mb-2">All Trails</h2>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Difficulty</th>
+                <th>Distance</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="trails-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/trails.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

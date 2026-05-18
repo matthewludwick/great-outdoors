@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5fb3c9"/>
+      <stop offset="100%" stop-color="#6dcde7"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff9e6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ffe4a3" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd47a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="720" fill="url(#sky)"/>
+  <circle cx="421" cy="158" r="120" fill="url(#sun)"/>
+  <circle cx="421" cy="158" r="42" fill="#fff8dc" opacity="0.85"/>
+  <path d="M 0,720 L 0,396 L 0,370 L 180,295 L 360,274 L 540,357 L 720,373 L 900,379 L 1080,391 L 1080,396 L 1080,720 Z" fill="#155180" opacity="0.7"/>
+  <path d="M 0,720 L 0,489 L 0,387 L 154,349 L 308,415 L 462,474 L 616,433 L 770,356 L 924,352 L 1078,397 L 1080,489 L 1080,720 Z" fill="#114269" opacity="0.85"/>
+  <path d="M 0,720 L 0,590 L 0,555 L 135,491 L 270,568 L 405,577 L 540,557 L 675,563 L 810,587 L 945,508 L 1080,557 L 1080,590 L 1080,720 Z" fill="#0f3a5c"/>
+  <rect x="0" y="0" width="1080" height="720" fill="url(#sky)" opacity="0"/>
+  <text x="540" y="670" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600"
+        fill="#fff" opacity="0.92" style="paint-order:stroke;stroke:#000;stroke-width:3px;stroke-opacity:0.45">
+    Mountain lake
+  </text>
+</svg>
