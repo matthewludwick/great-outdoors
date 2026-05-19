@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trail Management — The Great Outdoors</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-wrap">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="admin-head">
+      <div class="inner" style="display:block">
+        <a class="back" href="admin.html"><span id="ic-arrow" aria-hidden="true"></span> Back to Dashboard</a>
+        <h1>Trail Management</h1>
+        <p>Add, edit, and manage trails</p>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <div id="add-button-wrap" class="mb-2">
+        <button id="add-trail-btn" class="btn btn-primary" type="button">
+          <span id="ic-plus" aria-hidden="true"></span>
+          Add New Trail
+        </button>
+        <p style="font-size:0.875rem;color:var(--slate);margin-top:0.5rem">
+          Note: changes are kept only in this browser session (no persistence to disk).
+        </p>
+      </div>
+
+      <div id="form-host"></div>
+
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Difficulty</th>
+                <th>Distance</th>
+                <th>Reviews</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="trails-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-host"></div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/trails.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/admin-trails.js"></script>
+</body>
+</html>
