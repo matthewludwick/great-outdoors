@@ -411,7 +411,7 @@ section { padding: 3rem 0; }
   text-align: center;
 }
 .support-box h2, .support-box h3 { color: var(--white); margin-bottom: 0.75rem; }
-.support-box p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; line-height: 1.6; }
+.support-box p, .trail-main .support-box p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; line-height: 1.6; }
 .support-box .heart {
   margin: 0 auto 1rem;
   width: 3rem; height: 3rem;

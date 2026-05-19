@@ -1,34 +1,99 @@
-# ***Class Project***
+# The Great Outdoors — Vanilla HTML/CSS/JS site
 
+A static site for discovering Pacific Northwest hiking trails. Built with plain HTML, CSS, and JavaScript — no build step, no framework. Deploys to GitHub Pages as-is.
 
-# The Great Outdoors 🌲
+## What's in here
 
-The Great Outdoors is a project dedicated to helping people explore the Pacific Northwest responsibly while protecting its natural landscapes.
+```
+site/
+├── index.html          home page (search + trail listings)
+├── trail.html          trail detail (use ?id=N — e.g. trail.html?id=5)
+├── safety.html         safety info, Leave No Trace, 10 essentials, emergency contacts
+├── about.html          mission, values, hidden gems initiative
+├── login.html          login form (writes to localStorage)
+├── admin.html          admin dashboard (requires admin login)
+├── admin-trails.html   admin trail CRUD + review moderation
+├── .nojekyll           tells GH Pages "serve files as-is, don't process them"
+├── css/
+│   └── styles.css      single global stylesheet
+├── js/
+│   ├── trails.js       all 19 trails as plain JS data
+│   ├── common.js       shared: icons, auth, header/footer, helpers
+│   ├── home.js         home page logic
+│   ├── trail.js        trail-detail logic (reviews, weather, map)
+│   ├── safety.js       safety page content + render
+│   ├── about.js        about page (just icon mounting)
+│   ├── login.js        login form
+│   ├── admin.js        admin dashboard
+│   └── admin-trails.js admin trail CRUD
+├── images/
+│   ├── hero.svg        hero image for home/safety
+│   └── trails/         9 SVG placeholders, one per trail image
+└── generate_placeholders.py   script that built the SVGs (for re-running)
+```
 
-## 🌄 Background
+## Demo accounts
 
-**Evan Holt** is a lifelong Pacific Northwest resident, former wilderness guide, and outdoor educator. After spending over **15 years** leading guided hikes and teaching *Leave No Trace* principles throughout Oregon and Washington, Evan noticed several ongoing challenges faced by hikers and outdoor enthusiasts:
+The login is **not real auth** — it's just for the school demo. Two hard-coded accounts:
 
-- New hikers struggle to find **accurate, centralized, and up-to-date trail information**
-- Popular trails are **overcrowded**, while lesser-known trails remain **underused**
-- Many existing websites are **outdated**, difficult to navigate, or overly focused on **gear advertising** rather than safety and stewardship
+| Username | Password   | Role  |
+|----------|------------|-------|
+| `user`   | `user123`  | user  |
+| `admin`  | `admin123` | admin |
 
-## 🌱 Mission
+Login state is stored in `localStorage` under the key `tgo_auth_user`. To "log everyone out," users can clear their browser storage.
 
-Founded in **2024**, **The Great Outdoors** aims to:
+## How to deploy to GitHub Pages
 
-- Promote responsible and sustainable outdoor exploration  
-- Improve access to reliable trail and safety information  
-- Encourage discovery of lesser-known trails to reduce overcrowding  
-- Support conservation and *Leave No Trace* ethics  
+1. Push these files to a GitHub repo (any name).
+2. In the repo, go to **Settings → Pages**.
+3. Under "Build and deployment," choose **Source: Deploy from a branch**.
+4. Pick the **main** branch and the **/ (root)** folder. Save.
+5. Wait ~1 minute. Your site will be at `https://<your-username>.github.io/<repo-name>/`.
 
-## 🧭 Vision
+That's it. No build step. No tooling. Just static files.
 
-By combining education, thoughtful design, and up-to-date trail data, The Great Outdoors seeks to create a more balanced, informed, and respectful outdoor community across the Pacific Northwest.
+### Running locally
 
-## 📄 License
+You can just open `index.html` in a browser, but some features (the OpenStreetMap iframe, fetch-style behavior) work better when served. Easiest local server:
 
-This project is licensed under the MIT License — see the `LICENSE` file for details.
+```bash
+# Python 3 (most computers have it)
+cd site
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
 
+## Replacing the placeholder images with real photos
 
-xxxxx
+The trail images right now are SVG placeholders (themed landscape illustrations with the trail name written on them). They're tiny (~1.5KB each) and load instantly. To swap in real photos:
+
+**Option A — replace SVGs with JPGs of the same base name:**
+
+1. Find a photo for each trail.
+2. Save it as `images/trails/photo-1600929622034.jpg` (use the existing filenames so nothing breaks).
+3. In `js/trails.js`, find-and-replace `.svg` → `.jpg` (only inside the `image:` lines).
+
+**Option B — use any filenames you like:**
+
+In `js/trails.js`, just edit the `image:` path on each trail to point wherever you put the photo.
+
+## How the site works (for the team)
+
+- **Routing**: each page is its own HTML file. No router needed.
+- **State**: each page is "stateless" — refresh and it re-renders from the data. The only thing stored across pages is the login state (in `localStorage`).
+- **Trail data**: edit `js/trails.js` to add, remove, or change trails. It's just a regular array of objects.
+- **Styling**: all styles live in `css/styles.css`. Design tokens (colors, spacing, radii) are CSS custom properties at the top — change them once and they propagate everywhere.
+- **Icons**: Lucide icons are inlined as SVG strings in `js/common.js` under the `ICON` object. Add new ones by copying SVG markup into that object.
+- **Header & footer**: shared markup is generated by `mountChrome()` in `js/common.js`. Every page has empty `<div id="site-header"></div>` and `<div id="site-footer"></div>` placeholders that get replaced.
+
+## Things to know
+
+- **Admin trail edits don't persist.** The admin trail CRUD works in memory only — changes disappear on page refresh. To make changes permanent, edit `js/trails.js` directly. This is intentional for a school project; making it persist would require a backend or a more elaborate setup.
+- **Reviews don't persist either.** New reviews on the trail detail page live only in memory.
+- **Map** uses OpenStreetMap (no API key needed). The original used Google Maps which requires an API key. If you prefer Google Maps, edit the `mapHtml()` function in `js/trail.js`.
+- **No tracking, no analytics, no external dependencies** at runtime. All CSS, JS, and images are local. The only external requests are to OpenStreetMap (for the embed iframe) and Google Maps (only when the user clicks "Get Directions").
+
+## Browser support
+
+Targets modern browsers (Chrome, Firefox, Safari, Edge — anything from the last few years). Uses standard ES6 features (let/const, template literals, arrow functions, classes), no transpiling.

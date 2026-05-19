@@ -6,11 +6,7 @@ window.trailsData = [
   {
     id: 1,
     name: 'Opal Creek Trail',
-<<<<<<< HEAD
     image: 'images/trails/photo-1600929622034.jpg',
-=======
-    image: 'images/trails/photo-1600929622034.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Easy',
     distance: 7.0,
     elevationGain: 500,
@@ -39,11 +35,7 @@ window.trailsData = [
   {
     id: 2,
     name: "Sauer's Mountain",
-<<<<<<< HEAD
     image: 'images/trails/photo-1630626883157.jpg',
-=======
-    image: 'images/trails/photo-1630626883157.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 5.2,
     elevationGain: 1200,
@@ -70,11 +62,7 @@ window.trailsData = [
   {
     id: 3,
     name: 'Little Si Trail',
-<<<<<<< HEAD
     image: 'images/trails/photo-1621863200562.jpg',
-=======
-    image: 'images/trails/photo-1621863200562.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 4.7,
     elevationGain: 1300,
@@ -102,11 +90,7 @@ window.trailsData = [
   {
     id: 4,
     name: 'Whittier Ridge',
-<<<<<<< HEAD
     image: 'images/trails/photo-1630123738777.jpg',
-=======
-    image: 'images/trails/photo-1630123738777.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Easy',
     distance: 3.8,
     elevationGain: 600,
@@ -131,11 +115,7 @@ window.trailsData = [
   {
     id: 5,
     name: 'Mount Si',
-<<<<<<< HEAD
     image: 'images/trails/photo-1696219364293.jpg',
-=======
-    image: 'images/trails/photo-1696219364293.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 8.0,
     elevationGain: 3150,
@@ -165,11 +145,7 @@ window.trailsData = [
   {
     id: 6,
     name: 'Rattlesnake Ledge',
-<<<<<<< HEAD
     image: 'images/trails/photo-1599606843763.jpg',
-=======
-    image: 'images/trails/photo-1599606843763.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 4.0,
     elevationGain: 1160,
@@ -197,11 +173,7 @@ window.trailsData = [
   {
     id: 7,
     name: 'Lake 22',
-<<<<<<< HEAD
     image: 'images/trails/photo-1534991199945.jpg',
-=======
-    image: 'images/trails/photo-1534991199945.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 5.4,
     elevationGain: 1350,
@@ -228,11 +200,7 @@ window.trailsData = [
   {
     id: 8,
     name: 'Poo Poo Point',
-<<<<<<< HEAD
     image: 'images/trails/photo-1696219364361.jpg',
-=======
-    image: 'images/trails/photo-1696219364361.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 7.2,
     elevationGain: 1858,
@@ -259,11 +227,7 @@ window.trailsData = [
   {
     id: 9,
     name: 'Wallace Falls',
-<<<<<<< HEAD
     image: 'images/trails/photo-1593916845953.jpg',
-=======
-    image: 'images/trails/photo-1593916845953.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 5.6,
     elevationGain: 1300,
@@ -290,11 +254,7 @@ window.trailsData = [
   {
     id: 10,
     name: 'Heather Lake',
-<<<<<<< HEAD
     image: 'images/trails/photo-1600929622034.jpg',
-=======
-    image: 'images/trails/photo-1600929622034.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 4.6,
     elevationGain: 1050,
@@ -321,11 +281,7 @@ window.trailsData = [
   {
     id: 11,
     name: 'Colchuck Lake',
-<<<<<<< HEAD
     image: 'images/trails/photo-1696219364293.jpg',
-=======
-    image: 'images/trails/photo-1696219364293.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 8.5,
     elevationGain: 2280,
@@ -354,11 +310,7 @@ window.trailsData = [
   {
     id: 12,
     name: 'Snow Lake',
-<<<<<<< HEAD
     image: 'images/trails/photo-1534991199945.jpg',
-=======
-    image: 'images/trails/photo-1534991199945.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 6.0,
     elevationGain: 1300,
@@ -385,11 +337,7 @@ window.trailsData = [
   {
     id: 13,
     name: 'Maple Pass Loop',
-<<<<<<< HEAD
     image: 'images/trails/photo-1630123738777.jpg',
-=======
-    image: 'images/trails/photo-1630123738777.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 7.5,
     elevationGain: 2150,
@@ -416,11 +364,7 @@ window.trailsData = [
   {
     id: 14,
     name: 'Blanca Lake',
-<<<<<<< HEAD
     image: 'images/trails/photo-1621863200562.jpg',
-=======
-    image: 'images/trails/photo-1621863200562.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 8.0,
     elevationGain: 2700,
@@ -448,11 +392,7 @@ window.trailsData = [
   {
     id: 15,
     name: 'Mailbox Peak',
-<<<<<<< HEAD
     image: 'images/trails/photo-1696219364361.jpg',
-=======
-    image: 'images/trails/photo-1696219364361.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 9.4,
     elevationGain: 4100,
@@ -479,11 +419,7 @@ window.trailsData = [
   {
     id: 16,
     name: 'Gothic Basin',
-<<<<<<< HEAD
     image: 'images/trails/photo-1630626883157.jpg',
-=======
-    image: 'images/trails/photo-1630626883157.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 9.0,
     elevationGain: 2600,
@@ -510,11 +446,7 @@ window.trailsData = [
   {
     id: 17,
     name: 'Icicle Gorge Loop',
-<<<<<<< HEAD
     image: 'images/trails/photo-1599606843763.jpg',
-=======
-    image: 'images/trails/photo-1599606843763.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Easy',
     distance: 4.2,
     elevationGain: 600,
@@ -539,11 +471,7 @@ window.trailsData = [
   {
     id: 18,
     name: 'Granite Mountain',
-<<<<<<< HEAD
     image: 'images/trails/photo-1600929622034.jpg',
-=======
-    image: 'images/trails/photo-1600929622034.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Hard',
     distance: 8.6,
     elevationGain: 3800,
@@ -570,11 +498,7 @@ window.trailsData = [
   {
     id: 19,
     name: 'Chain Lakes Loop',
-<<<<<<< HEAD
     image: 'images/trails/photo-1593916845953.jpg',
-=======
-    image: 'images/trails/photo-1593916845953.svg',
->>>>>>> 14141dba2cc89721bae4019017243ca74b3be1ea
     difficulty: 'Moderate',
     distance: 7.0,
     elevationGain: 1700,
