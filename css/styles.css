@@ -379,7 +379,9 @@ section { padding: 3rem 0; }
   font-size: 0.75rem;
   white-space: nowrap;
 }
-.diff-Easy     { background: #16a34a; }
+.diff-Easy     {
+    background-color: #1b5e20;
+    color: white; }
 .diff-Moderate { background: #2563eb; }
 .diff-Hard     { background: #000000; }
 
