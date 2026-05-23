@@ -47,7 +47,11 @@ const ICON = {
   trash:       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
   close:       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
   save:        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
-  message:     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+  message:     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  mail:        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+  userPlus:    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>',
+  chevronDown: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>'
+,  calendar:    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>'
 };
 
 /* sizeIcon(name, sizePx[, classNames]) → returns the icon SVG string sized to N px.
@@ -67,18 +71,46 @@ const DUMMY_ACCOUNTS = [
   { username: 'admin', password: 'admin123', role: 'admin', email: 'admin@example.com' }
 ];
 
+const REGISTERED_KEY = 'tgo_registered_users';
+
 const Auth = {
   user() {
     try { return JSON.parse(localStorage.getItem(AUTH_KEY)); }
     catch (e) { return null; }
   },
+  registeredUsers() {
+    try { return JSON.parse(localStorage.getItem(REGISTERED_KEY)) || []; }
+    catch (e) { return []; }
+  },
   login(username, password) {
+    // Check dummy accounts first
     const acct = DUMMY_ACCOUNTS.find(a => a.username === username && a.password === password);
-    if (!acct) return false;
+    if (acct) {
+      localStorage.setItem(AUTH_KEY, JSON.stringify({
+        username: acct.username, role: acct.role, email: acct.email
+      }));
+      return true;
+    }
+    // Check registered users
+    const registered = this.registeredUsers();
+    const reg = registered.find(a => a.username === username && a.password === password);
+    if (reg) {
+      localStorage.setItem(AUTH_KEY, JSON.stringify({
+        username: reg.username, role: 'user', email: reg.email,
+        firstName: reg.firstName, lastName: reg.lastName
+      }));
+      return true;
+    }
+    return false;
+  },
+  register({ firstName, lastName, username, email, dob, city, state, password }) {
+    const registered = this.registeredUsers();
+    registered.push({ firstName, lastName, username, email, dob, city, state, password });
+    localStorage.setItem(REGISTERED_KEY, JSON.stringify(registered));
+    // Auto-login
     localStorage.setItem(AUTH_KEY, JSON.stringify({
-      username: acct.username, role: acct.role, email: acct.email
+      username, role: 'user', email, firstName, lastName, dob, city, state
     }));
-    return true;
   },
   logout() {
     localStorage.removeItem(AUTH_KEY);
@@ -133,7 +165,15 @@ function renderHeader() {
          <span>${escapeHtml(u.username)}${u.role === 'admin' ? '<span class="admin-pill">Admin</span>' : ''}</span>
        </div>
        <button id="nav-logout" type="button">${sizeIcon('logout', 16)}<span>Logout</span></button>`
-    : `<a href="login.html">${sizeIcon('user', 16)}<span>Login</span></a>`;
+    : `<div class="nav-account-wrap">
+         <button class="nav-account-btn" id="nav-account-btn" type="button" aria-haspopup="true" aria-expanded="false">
+           ${sizeIcon('user', 16)}<span>Account</span>${sizeIcon('chevronDown', 14)}
+         </button>
+         <div class="nav-account-dropdown" id="nav-account-dropdown" role="menu">
+           <a href="login.html" role="menuitem">${sizeIcon('user', 16)}<span>Sign In</span></a>
+           <a href="signup.html" role="menuitem">${sizeIcon('userPlus', 16)}<span>Create Account</span></a>
+         </div>
+       </div>`;
 
   return `
   <header class="site-header">
@@ -173,6 +213,21 @@ function mountChrome() {
         Auth.logout();
         window.location.reload();
       });
+    }
+    // Account dropdown toggle (shown when logged out)
+    const accountBtn = document.getElementById('nav-account-btn');
+    const accountDropdown = document.getElementById('nav-account-dropdown');
+    if (accountBtn && accountDropdown) {
+      accountBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = accountDropdown.classList.toggle('open');
+        accountBtn.setAttribute('aria-expanded', isOpen);
+      });
+      document.addEventListener('click', () => {
+        accountDropdown.classList.remove('open');
+        accountBtn.setAttribute('aria-expanded', 'false');
+      });
+      accountDropdown.addEventListener('click', (e) => e.stopPropagation());
     }
     // Smooth-scroll for #discover when already on home
     const discover = document.getElementById('nav-discover');

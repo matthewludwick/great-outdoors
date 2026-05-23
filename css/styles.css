@@ -1246,3 +1246,75 @@ tbody tr:hover { background: rgba(245, 245, 240, 0.5); }
 .mb-1 { margin-bottom: 0.5rem; }
 .mb-2 { margin-bottom: 1rem; }
 .mb-4 { margin-bottom: 2rem; }
+
+/* ---------- Account dropdown (logged-out header) ---------- */
+.nav-account-wrap {
+  position: relative;
+}
+.nav-account-btn {
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+}
+.nav-account-btn:hover { color: var(--earth-tan); }
+.nav-account-btn svg:last-child {
+  transition: transform 0.2s;
+}
+.nav-account-btn[aria-expanded="true"] svg:last-child {
+  transform: rotate(180deg);
+}
+.nav-account-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+  min-width: 11rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  z-index: 200;
+}
+.nav-account-dropdown.open { display: block; }
+.nav-account-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--ink) !important;
+  font-size: 0.9rem;
+  transition: background 0.12s;
+}
+.nav-account-dropdown a:hover {
+  background: var(--cream);
+  color: var(--forest-dark) !important;
+}
+.nav-account-dropdown a svg { color: var(--slate); flex-shrink: 0; }
+
+/* ---------- Sign-up extras ---------- */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 400px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+.signup-signin-link {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--slate);
+}
+.signup-signin-link a {
+  color: var(--forest-medium);
+  font-weight: 500;
+}
+.signup-signin-link a:hover { text-decoration: underline; }
