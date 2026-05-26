@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('ic-settings').innerHTML = sizeIcon('settings', 16);
+  const reviewsIcon = document.getElementById('ic-reviews');
+  if (reviewsIcon) reviewsIcon.innerHTML = sizeIcon('message', 16);
 
   const trails = window.trailsData;
   const totalTrails = trails.length;

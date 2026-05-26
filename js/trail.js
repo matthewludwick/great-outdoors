@@ -204,14 +204,15 @@ function attachFormHandlers() {
         renderReviewsSection();
         return;
       }
-      _reviews = [{
-        id: _reviews.length + 1,
+      // Persist via the Reviews helper (localStorage today, real DB later).
+      Reviews.add({
+        trailId: _trail.id,
         username: u.username,
         rating: _newRating,
-        date: new Date().toISOString().split('T')[0],
-        comment: text,
-        helpfulCount: 0
-      }, ..._reviews];
+        comment: text
+      });
+      // Re-pull from storage so the merged list is what we show.
+      _reviews = Reviews.forTrail(_trail.id);
       _newRating = 5;
       _langError = '';
       renderReviewsSection();
@@ -221,7 +222,8 @@ function attachFormHandlers() {
 
 function renderTrail(t) {
   _trail = t;
-  _reviews = (t.reviews || []).slice();
+  // Pull the merged list (baked-in + user-submitted, minus any moderated away)
+  _reviews = Reviews.forTrail(t.id);
 
   const isHiddenGem = !!t.isHiddenGem;
   const featuresHtml = (t.features && t.features.length)
