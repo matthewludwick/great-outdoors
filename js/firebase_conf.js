@@ -5,7 +5,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAZOrM0lwRV95U6F2M_haRWECfpKNSF3Ys",
+  apiKey: "requestme",
   authDomain: "greatoutdoors2026-9bb57.firebaseapp.com",
   projectId: "greatoutdoors2026-9bb57",
   storageBucket: "greatoutdoors2026-9bb57.firebasestorage.app",
