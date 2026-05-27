@@ -83,34 +83,51 @@ const Auth = {
     catch (e) { return []; }
   },
   login(username, password) {
-    // Check dummy accounts first
-    const acct = DUMMY_ACCOUNTS.find(a => a.username === username && a.password === password);
-    if (acct) {
+  const acct = DUMMY_ACCOUNTS.find(a => a.username === username && a.password === password);
+  if (acct) {
+    localStorage.setItem(AUTH_KEY, JSON.stringify({
+      username: acct.username, role: acct.role, email: acct.email
+    }));
+    return Promise.resolve(true);
+  }
+
+  if (!window._firestoreFns || !window._firebaseDb) {
+    console.error('Firebase not ready');
+    return Promise.resolve(false);
+  }
+
+  const { getDocs, collection, query, where } = window._firestoreFns;
+  const db = window._firebaseDb;
+
+  return getDocs(query(collection(db, 'users'), where('username', '==', username)))
+    .then(snap => {
+      if (snap.empty) return false;
+      const u = snap.docs[0].data();
+      if (u.password !== password) return false;
       localStorage.setItem(AUTH_KEY, JSON.stringify({
-        username: acct.username, role: acct.role, email: acct.email
+        username: u.username, role: u.role || 'user',
+        email: u.email, firstName: u.firstName, lastName: u.lastName
       }));
       return true;
-    }
-    // Check registered users
-    const registered = this.registeredUsers();
-    const reg = registered.find(a => a.username === username && a.password === password);
-    if (reg) {
-      localStorage.setItem(AUTH_KEY, JSON.stringify({
-        username: reg.username, role: 'user', email: reg.email,
-        firstName: reg.firstName, lastName: reg.lastName
-      }));
-      return true;
-    }
-    return false;
+    });
   },
   register({ firstName, lastName, username, email, dob, city, state, password }) {
-    const registered = this.registeredUsers();
-    registered.push({ firstName, lastName, username, email, dob, city, state, password });
-    localStorage.setItem(REGISTERED_KEY, JSON.stringify(registered));
-    // Auto-login
-    localStorage.setItem(AUTH_KEY, JSON.stringify({
-      username, role: 'user', email, firstName, lastName, dob, city, state
-    }));
+    const userData = { firstName, lastName, username, email, dob, city, state, role: 'user' };
+    localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+
+    if (window._firebaseDb && window._firestoreFns) {
+      const { collection } = window._firestoreFns;
+      const { addDoc } = window._firestoreWriteFns;
+      const db = window._firebaseDb;
+
+      addDoc(collection(db, 'users'), {
+        firstName, lastName, username, email,
+        dob, city, state,
+        password,
+        role: 'user',
+        dateCreated: new Date().toISOString()
+      }).catch(err => console.error('Firestore save failed:', err));
+    }
   },
   logout() {
     localStorage.removeItem(AUTH_KEY);
@@ -153,83 +170,34 @@ function renderStars(rating, opts = {}) {
   return html;
 }
 
-/* ---------- Header & footer ---------- */
 function renderHeader() {
   const u = Auth.user();
-
   const adminLink = u && u.role === 'admin'
     ? `<a href="admin.html">Admin</a>`
     : '';
-
   const userArea = u
     ? `<div class="user-chip">
          ${sizeIcon('user', 16)}
-         <span>
-           ${escapeHtml(u.username)}
-           ${u.role === 'admin'
-             ? '<span class="admin-pill">Admin</span>'
-             : ''}
-         </span>
+         <span>${escapeHtml(u.username)}${u.role === 'admin' ? '<span class="admin-pill">Admin</span>' : ''}</span>
        </div>
- HEAD
        <button id="nav-logout" type="button">${sizeIcon('logout', 16)}<span>Logout</span></button>`
-    : `<div class="nav-account-wrap">
-         <button class="nav-account-btn" id="nav-account-btn" type="button" aria-haspopup="true" aria-expanded="false">
-           ${sizeIcon('user', 16)}<span>Account</span>${sizeIcon('chevronDown', 14)}
-         </button>
-         <div class="nav-account-dropdown" id="nav-account-dropdown" role="menu">
-           <a href="login.html" role="menuitem">${sizeIcon('user', 16)}<span>Sign In</span></a>
-           <a href="signup.html" role="menuitem">${sizeIcon('userPlus', 16)}<span>Create Account</span></a>
-         </div>
-       </div>`;
-
-
-       <button id="nav-logout" type="button">
-         ${sizeIcon('logout', 16)}
-         <span>Logout</span>
-       </button>`
-    : `<a href="login.html">
-         ${sizeIcon('user', 16)}
-         <span>Login</span>
-       </a>`;
- 553056e (Fix mobile navigation responsiveness and accessibility)
+    : `<a href="login.html">${sizeIcon('user', 16)}<span>Login</span></a>`;
 
   return `
   <header class="site-header">
     <div class="inner">
-
       <a class="brand" href="index.html">
         ${sizeIcon('mountain', 32)}
         <span class="brand-name">The Great Outdoors</span>
       </a>
-
-      <button
-        class="menu-toggle"
-        id="menu-toggle"
-        aria-label="Toggle navigation menu">
-        ☰
-      </button>
-
-      <nav class="site-nav" id="site-nav">
-        <a href="index.html#discover" id="nav-discover">
-          Discover Trails
-        </a>
-
-        <a href="safety.html">
-          Safety &amp; Leave No Trace
-        </a>
-
-        <a href="about.html">
-          About Us
-        </a>
-
+      <nav class="site-nav">
+        <a href="index.html#discover" id="nav-discover">Discover Trails</a>
+        <a href="safety.html">Safety &amp; Leave No Trace</a>
+        <a href="about.html">About Us</a>
         ${adminLink}
-
         <span class="divider" aria-hidden="true"></span>
-
         ${userArea}
       </nav>
-
     </div>
   </header>`;
 }
@@ -240,6 +208,7 @@ function renderFooter() {
     <p>&copy; 2026 The Great Outdoors. Tread lightly, explore responsibly.</p>
   </footer>`;
 }
+
 
 /* Mount header + footer into the page, wire up nav events */
 function mountChrome() {
@@ -258,7 +227,6 @@ function mountChrome() {
         window.location.reload();
       });
     }
- HEAD
     // Account dropdown toggle (shown when logged out)
     const accountBtn = document.getElementById('nav-account-btn');
     const accountDropdown = document.getElementById('nav-account-dropdown');
@@ -285,7 +253,6 @@ function mountChrome() {
       });
     }
 
-    553056e (Fix mobile navigation responsiveness and accessibility)
     // Smooth-scroll for #discover when already on home
     const discover = document.getElementById('nav-discover');
 
