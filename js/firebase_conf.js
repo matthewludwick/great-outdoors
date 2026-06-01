@@ -5,13 +5,21 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "requestme",
-  authDomain: "greatoutdoors2026-9bb57.firebaseapp.com",
-  projectId: "greatoutdoors2026-9bb57",
-  storageBucket: "greatoutdoors2026-9bb57.firebasestorage.app",
-  messagingSenderId: "211146039825",
-  appId: "1:211146039825:web:835e7658a54ab074e847b0"
+
+  apiKey: "AIzaSyCbBLJOfLI0nSZaBKsiBxy1QycJ0yKMaF8",
+
+  authDomain: "it115-greatoutdoors.firebaseapp.com",
+
+  projectId: "it115-greatoutdoors",
+
+  storageBucket: "it115-greatoutdoors.firebasestorage.app",
+
+  messagingSenderId: "317621110901",
+
+  appId: "1:317621110901:web:f29e9f294e647143ed103c"
+
 };
+
 
 const app = initializeApp(firebaseConfig);
 
