@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Outdoors - Agreement</title>
+    <style>
+        :root {
+            --primary-color: #2e6f40;
+            --secondary-color: #1e4629;
+            --background-color: #f4f7f5;
+            --card-background: #ffffff;
+            --text-color: #2d3732;
+            --border-color: #ccd5ae;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .policy-box {
+            height: 250px;
+            overflow-y: scroll;
+            border: 1px solid var(--border-color);
+            background-color: #fafbfc;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin: 30px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-top: 5px;
+            margin-right: 12px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .form-group label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        button:disabled {
+            background-color: #a3b19b;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Great Outdoors Platform Agreement</h1>
+    
+    <form id="agreementForm" onsubmit="handleSubmit(event)">
+        
+        <h2>1. Terms of Use</h2>
+        <div class="policy-box">
+            <p>Welcome to Great Outdoors. By accessing our services, trail maps, and gear review database, you agree to comply with and be bound by these terms.</p>
+            <p><strong>Use of Service:</strong> You agree to use this platform only for lawful outdoor recreation planning and community interactions. Any unauthorized data scraping of trail conditions or user reviews is strictly prohibited.</p>
+            <p><strong>User Safety:</strong> Nature is unpredictable. Great Outdoors provides geographical data and trail descriptions for educational purposes only. You assume all personal risk associated with wilderness navigation, weather changes, and physical exertion.</p>
+            <p><strong>Account Responsibility:</strong> You are responsible for maintaining the confidentiality of your account password and all activities occurring under your profile.</p>
+        </div>
+
+        <h2>2. Privacy Policy</h2>
+        <div class="policy-box">
+            <p>Your privacy matters to us. This policy describes how Great Outdoors collects and protects your data during your SDLC coursework interaction.</p>
+            <p><strong>Data Collection:</strong> We collect information you provide directly, including your name, email address, and optional GPS coordinates shared while logging outdoor activities.</p>
+            <p><strong>Data Usage:</strong> Your location data is strictly used to render local maps and calculate trail distances. We do not sell or lease your tracking data to third-party marketing firms.</p>
+            <p><strong>Cookies and Analytics:</strong> We utilize basic session cookies to keep you logged in and to analyze site performance traffic during active testing periods.</p>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" id="agreeCheckbox" onclick="toggleButton()">
+            <label for="agreeCheckbox">
+                I have read, understood, and explicitly agree to the Great Outdoors Terms of Use and Privacy Policy.
+            </label>
+        </div>
+
+        <div class="btn-container">
+            <button type="submit" id="submitBtn" disabled>Continue to Platform</button>
+        </div>
+        
+    </form>
+</div>
+
+<script>
+    function toggleButton() {
+        const checkbox = document.getElementById('agreeCheckbox');
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = !checkbox.checked;
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        alert('Thank you! Agreement recorded. Redirecting to the Great Outdoors dashboard...');
+        // In a live app, add code here to update the backend database or redirect the user.
+    }
+</script>
+
+</body>
+</html>
