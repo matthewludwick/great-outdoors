@@ -364,7 +364,7 @@ window.trailsData = [
   {
     id: 14,
     name: 'Blanca Lake',
-    image: 'images/trails/photo-1621863200562.jpg',
+    image: 'images/trails/photo-blanca-lake.jpg',
     difficulty: 'Hard',
     distance: 8.0,
     elevationGain: 2700,

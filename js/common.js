@@ -52,6 +52,13 @@ const ICON = {
   userPlus:    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>',
   chevronDown: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>'
 ,  calendar:    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>'
+,  bookmark:    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>'
+,  bookmarkFill:'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>'
+,  check:       '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+,  checkCircle: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+,  checkCircleFill: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="8 12 11 15 16 9"/></svg>'
+,  filter:      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>'
+,  sort:        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M11 18h2"/></svg>'
 };
 
 /* sizeIcon(name, sizePx[, classNames]) → returns the icon SVG string sized to N px.
@@ -210,6 +217,179 @@ const Reviews = {
   }
 };
 
+/* ---------- Lists (wishlist + completed) ---------------------
+   Per-user wishlist and completed trails. Keyed by username so
+   data persists per account. Easy swap to Firestore later — each
+   user gets a doc with { wishlist: [trailId,...], completed: [...] }.
+*/
+const LISTS_KEY_PREFIX = 'tgo_lists_';   // tgo_lists_<username>
+
+const Lists = {
+  _key(username) { return LISTS_KEY_PREFIX + (username || '').toLowerCase(); },
+  _read(username) {
+    try {
+      const raw = localStorage.getItem(this._key(username));
+      const data = raw ? JSON.parse(raw) : {};
+      return {
+        wishlist: Array.isArray(data.wishlist) ? data.wishlist.map(Number) : [],
+        completed: Array.isArray(data.completed) ? data.completed.map(Number) : []
+      };
+    } catch (e) {
+      return { wishlist: [], completed: [] };
+    }
+  },
+  _write(username, data) {
+    if (!username) return;
+    localStorage.setItem(this._key(username), JSON.stringify(data));
+  },
+  get(username) {
+    if (!username) return { wishlist: [], completed: [] };
+    return this._read(username);
+  },
+  isOnWishlist(username, trailId) {
+    if (!username) return false;
+    return this._read(username).wishlist.includes(Number(trailId));
+  },
+  isCompleted(username, trailId) {
+    if (!username) return false;
+    return this._read(username).completed.includes(Number(trailId));
+  },
+  toggleWishlist(username, trailId) {
+    if (!username) return false;
+    const id = Number(trailId);
+    const data = this._read(username);
+    const i = data.wishlist.indexOf(id);
+    if (i >= 0) data.wishlist.splice(i, 1);
+    else data.wishlist.push(id);
+    this._write(username, data);
+    return data.wishlist.includes(id);
+  },
+  toggleCompleted(username, trailId) {
+    if (!username) return false;
+    const id = Number(trailId);
+    const data = this._read(username);
+    const i = data.completed.indexOf(id);
+    if (i >= 0) data.completed.splice(i, 1);
+    else data.completed.push(id);
+    this._write(username, data);
+    return data.completed.includes(id);
+  }
+};
+
+/* ---------- Profiles ----------------------------------------
+   Per-user bio/location/avatar profile. Sample-review usernames get
+   auto-generated dummy profiles on first access so the demo feels
+   real. Real users (the ones registered or actively logged in) start
+   blank and can edit.
+*/
+const PROFILE_KEY_PREFIX = 'tgo_profile_';   // tgo_profile_<username>
+
+// Determinstic helpers for the dummy-profile generator
+function _strHash(s) {
+  let h = 0;
+  for (let i = 0; i < (s || '').length; i++) {
+    h = ((h << 5) - h) + s.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h);
+}
+const _PNW_LOCATIONS = [
+  'Seattle, WA', 'Bellingham, WA', 'Tacoma, WA', 'Olympia, WA', 'Spokane, WA',
+  'Bend, OR', 'Portland, OR', 'Eugene, OR', 'Hood River, OR', 'Ashland, OR',
+  'Leavenworth, WA', 'North Bend, WA', 'Vancouver, BC', 'Boise, ID', 'Missoula, MT'
+];
+const _BIO_TEMPLATES = [
+  'Weekend warrior chasing summits and good coffee. Always looking for the next quiet trail.',
+  'Born and raised in the PNW. Happiest above the treeline.',
+  'Backpacker, photographer, occasional fly-fisher. Pet-friendly trails preferred.',
+  'Slow hiker, big views. Don\'t rush me past the wildflowers.',
+  'Solo female hiker logging miles since 2018. Always happy to swap trail tips.',
+  'Trail running and peak bagging when the weather cooperates.',
+  'Family-friendly recs welcome — I have two small adventurers in tow.',
+  'Day-hikes only, but I do them often. Bonus points for waterfalls.',
+  'Backcountry skier turned summer hiker. Looking for the off-the-beaten-path stuff.',
+  'New to the Cascades and obsessed. Send me your favorite hidden gems!'
+];
+
+const Profiles = {
+  _key(username) { return PROFILE_KEY_PREFIX + (username || '').toLowerCase(); },
+  // Anyone who has authored a review counts as a "known user" for profile purposes
+  _isKnownSampleUser(username) {
+    if (!username) return false;
+    const lower = username.toLowerCase();
+    return (window.trailsData || []).some(t =>
+      (t.reviews || []).some(r => (r.username || '').toLowerCase() === lower)
+    );
+  },
+  _generateDummy(username) {
+    const seed = _strHash(username);
+    const bio = _BIO_TEMPLATES[seed % _BIO_TEMPLATES.length];
+    const location = _PNW_LOCATIONS[(seed >> 3) % _PNW_LOCATIONS.length];
+    // Auto-add trails they reviewed to "completed", scatter some others into wishlist
+    const completed = [];
+    (window.trailsData || []).forEach(t => {
+      const reviewed = (t.reviews || []).some(r => (r.username || '').toLowerCase() === username.toLowerCase());
+      if (reviewed) completed.push(t.id);
+    });
+    // Add 1-3 wishlist trails (pseudo-random based on seed, must not overlap completed)
+    const allIds = (window.trailsData || []).map(t => t.id).filter(id => !completed.includes(id));
+    const wishlistCount = 1 + (seed % 3);
+    const wishlist = [];
+    for (let i = 0; i < wishlistCount && i < allIds.length; i++) {
+      const pick = allIds[(seed + i * 7) % allIds.length];
+      if (!wishlist.includes(pick)) wishlist.push(pick);
+    }
+    return {
+      username,
+      bio,
+      location,
+      joined: '2024',
+      isAutoGenerated: true,
+      _wishlist: wishlist,
+      _completed: completed
+    };
+  },
+  get(username) {
+    if (!username) return null;
+    // Already saved?
+    try {
+      const raw = localStorage.getItem(this._key(username));
+      if (raw) {
+        const saved = JSON.parse(raw);
+        // Merge with current Lists data (Lists is the source of truth for wishlist/completed)
+        return { ...saved, username };
+      }
+    } catch (e) {}
+    // Sample user? Generate, save, also seed Lists with their completed/wishlist
+    if (this._isKnownSampleUser(username)) {
+      const dummy = this._generateDummy(username);
+      const profile = { username: dummy.username, bio: dummy.bio, location: dummy.location, joined: dummy.joined, isAutoGenerated: true };
+      localStorage.setItem(this._key(username), JSON.stringify(profile));
+      // Seed lists (don't overwrite if user already has data)
+      const existingLists = Lists.get(username);
+      if (existingLists.wishlist.length === 0 && existingLists.completed.length === 0) {
+        Lists._write(username, { wishlist: dummy._wishlist, completed: dummy._completed });
+      }
+      return profile;
+    }
+    // Real user with no profile yet — return a blank shell so they can edit
+    return { username, bio: '', location: '', joined: new Date().getFullYear().toString(), isAutoGenerated: false };
+  },
+  save(username, { bio, location }) {
+    if (!username) return null;
+    const current = this.get(username) || { username, joined: new Date().getFullYear().toString() };
+    const updated = {
+      username,
+      bio: (bio || '').slice(0, 500),
+      location: (location || '').slice(0, 80),
+      joined: current.joined || new Date().getFullYear().toString(),
+      isAutoGenerated: false
+    };
+    localStorage.setItem(this._key(username), JSON.stringify(updated));
+    return updated;
+  }
+};
+
 /* ---------- Bad-language filter (replaces utils/badLanguageFilter.ts) ---------- */
 const BAD_WORDS = ['damn', 'hell', 'crap', 'stupid', 'idiot', 'sucks'];
 function containsBadLanguage(text) {
@@ -251,16 +431,17 @@ function renderHeader() {
     : '';
 
   const userArea = u
-    ? `<div class="user-chip">
-         ${sizeIcon('user', 16)}
-         <span>
-           ${escapeHtml(u.username)}
-           ${u.role === 'admin'
-             ? '<span class="admin-pill">Admin</span>'
-             : ''}
-         </span>
-       </div>
-       <button id="nav-logout" type="button">${sizeIcon('logout', 16)}<span>Logout</span></button>`
+    ? `<div class="nav-account-wrap">
+         <button class="nav-account-btn" id="nav-account-btn" type="button" aria-haspopup="true" aria-expanded="false">
+           ${sizeIcon('user', 16)}
+           <span>${escapeHtml(u.username)}${u.role === 'admin' ? '<span class="admin-pill">Admin</span>' : ''}</span>
+           ${sizeIcon('chevronDown', 14)}
+         </button>
+         <div class="nav-account-dropdown" id="nav-account-dropdown" role="menu">
+           ${u.role === 'admin' ? '' : `<a href="profile.html" role="menuitem">${sizeIcon('user', 16)}<span>My Profile</span></a>`}
+           <button id="nav-logout" type="button" role="menuitem">${sizeIcon('logout', 16)}<span>Logout</span></button>
+         </div>
+       </div>`
     : `<div class="nav-account-wrap">
          <button class="nav-account-btn" id="nav-account-btn" type="button" aria-haspopup="true" aria-expanded="false">
            ${sizeIcon('user', 16)}<span>Account</span>${sizeIcon('chevronDown', 14)}
@@ -409,6 +590,24 @@ function escapeHtml(s) {
 
 function formatNum(n) {
   return Number(n).toLocaleString();
+}
+
+/* Render wishlist/completed status badges to overlay on a trail card.
+   Returns inline HTML (empty string when user not logged in or no status).
+   Pages can set window._suppressListBadges = true to hide badges
+   (used by profile pages showing someone else's lists). */
+function renderListStatusBadges(trailId) {
+  if (window._suppressListBadges) return '';
+  const u = Auth.user();
+  if (!u || u.role === 'admin') return '';
+  const wished = Lists.isOnWishlist(u.username, trailId);
+  const done = Lists.isCompleted(u.username, trailId);
+  if (!wished && !done) return '';
+  let html = '<div class="card-status-badges">';
+  if (done)  html += `<span class="card-status-badge badge-completed" title="Completed">${sizeIcon('checkCircleFill', 18)}</span>`;
+  if (wished) html += `<span class="card-status-badge badge-wishlist" title="On wishlist">${sizeIcon('bookmarkFill', 18)}</span>`;
+  html += '</div>';
+  return html;
 }
 
 /* Auto-init chrome when DOM is ready */

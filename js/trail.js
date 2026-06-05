@@ -75,11 +75,14 @@ function mapHtml(name, coords, location) {
 
 function reviewHtml(r) {
   const dateStr = new Date(r.date).toLocaleDateString();
+  const userLink = r.username
+    ? `<a class="name" href="profile.html?u=${encodeURIComponent(r.username)}">${escapeHtml(r.username)}</a>`
+    : `<span class="name">anonymous</span>`;
   return `
     <div class="review">
       <div class="head">
         <div>
-          <div class="who"><span class="name">${escapeHtml(r.username)}</span><span class="date">${dateStr}</span></div>
+          <div class="who">${userLink}<span class="date">${dateStr}</span></div>
           ${renderStars(r.rating, { size: 'sm' })}
         </div>
       </div>
@@ -296,6 +299,8 @@ function renderTrail(t) {
       </div>
     </div>
 
+    <div id="trail-list-actions"></div>
+
     <div class="trail-stats">
       <div class="container-5xl">
         <div class="grid">
@@ -372,7 +377,7 @@ function renderTrail(t) {
               ${sizeIcon('heart', 32, 'heart')}
               <h3>Support Us</h3>
               <p>Help us keep this site running and continue providing valuable trail information for the hiking community. Your support helps cover hosting, maintenance, and development costs.</p>
-              <button class="btn btn-light" type="button">Make a Donation</button>
+              <a class="btn btn-light" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Make a Donation</a>
             </div>
           </section>
 
@@ -420,6 +425,39 @@ function renderTrail(t) {
   `;
 
   renderReviewsSection();
+  renderListActions();
+}
+
+function renderListActions() {
+  const host = document.getElementById('trail-list-actions');
+  if (!host || !_trail) return;
+  const u = Auth.user();
+  // Only show for logged-in non-admin users
+  if (!u || u.role === 'admin') {
+    host.innerHTML = '';
+    return;
+  }
+  const wished = Lists.isOnWishlist(u.username, _trail.id);
+  const done = Lists.isCompleted(u.username, _trail.id);
+  host.innerHTML = `
+    <div class="trail-list-actions container-5xl">
+      <button class="trail-action-btn ${wished ? 'is-active' : ''}" id="btn-wishlist" type="button">
+        ${sizeIcon(wished ? 'bookmarkFill' : 'bookmark', 18)}
+        <span>${wished ? 'On wishlist' : 'Add to wishlist'}</span>
+      </button>
+      <button class="trail-action-btn ${done ? 'is-active' : ''}" id="btn-completed" type="button">
+        ${sizeIcon(done ? 'checkCircleFill' : 'checkCircle', 18)}
+        <span>${done ? 'Completed' : 'Mark completed'}</span>
+      </button>
+    </div>`;
+  document.getElementById('btn-wishlist').addEventListener('click', () => {
+    Lists.toggleWishlist(u.username, _trail.id);
+    renderListActions();
+  });
+  document.getElementById('btn-completed').addEventListener('click', () => {
+    Lists.toggleCompleted(u.username, _trail.id);
+    renderListActions();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
