@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — The Great Outdoors</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="login-wrap">
+    <div class="login-card-outer">
+      <a class="login-back" href="index.html">
+        <span id="ic-arrow" aria-hidden="true"></span> Back to Home
+      </a>
+
+      <div class="login-head">
+        <span class="logo" id="ic-logo" aria-hidden="true"></span>
+        <h1>Create Account</h1>
+        <p>Join the community and start exploring</p>
+      </div>
+
+      <div class="login-card">
+        <form id="signup-form" novalidate>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="first-name">First Name</label>
+              <div class="input-wrap">
+                <span class="icon-left" id="ic-user-first" aria-hidden="true"></span>
+                <input id="first-name" name="first_name" class="input with-icon" type="text"
+                       required placeholder="Jane" autocomplete="given-name">
+              </div>
+            </div>
+            <div class="field">
+              <label for="last-name">Last Name</label>
+              <div class="input-wrap">
+                <input id="last-name" name="last_name" class="input" type="text"
+                       required placeholder="Smith" autocomplete="family-name">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="username">Username</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-user" aria-hidden="true"></span>
+              <input id="username" name="username" class="input with-icon" type="text"
+                     required placeholder="trailblazer42" autocomplete="username">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-mail" aria-hidden="true"></span>
+              <input id="email" name="email" class="input with-icon" type="email"
+                     required placeholder="jane@example.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="dob">Date of Birth</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-cal" aria-hidden="true"></span>
+              <input id="dob" name="dob" class="input with-icon" type="date"
+                     required autocomplete="bday">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="city">City</label>
+              <div class="input-wrap">
+                <span class="icon-left" id="ic-pin" aria-hidden="true"></span>
+                <input id="city" name="city" class="input with-icon" type="text"
+                       placeholder="Seattle" autocomplete="address-level2">
+              </div>
+            </div>
+            <div class="field">
+              <label for="state">State</label>
+              <div class="input-wrap">
+                <input id="state" name="state" class="input" type="text"
+                       placeholder="WA" maxlength="2" autocomplete="address-level1">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-lock" aria-hidden="true"></span>
+              <input id="password" name="password" class="input with-icon" type="password"
+                     required placeholder="Create a password" autocomplete="new-password">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="confirm-password">Confirm Password</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-lock2" aria-hidden="true"></span>
+              <input id="confirm-password" name="confirm_password" class="input with-icon" type="password"
+                     required placeholder="Repeat your password" autocomplete="new-password">
+            </div>
+          </div>
+
+          <div id="error" class="error-banner" style="display:none"></div>
+
+          <button class="btn btn-primary btn-block btn-large" type="submit">Create Account</button>
+        </form>
+
+        <p class="signup-signin-link">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/signup.js"></script>
+</body>
+</html>

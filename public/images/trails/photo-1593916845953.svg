@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a8c8c"/>
+      <stop offset="100%" stop-color="#55a1a1"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff9e6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ffe4a3" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd47a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="720" fill="url(#sky)"/>
+  <circle cx="468" cy="210" r="120" fill="url(#sun)"/>
+  <circle cx="468" cy="210" r="42" fill="#fff8dc" opacity="0.85"/>
+  <path d="M 0,720 L 0,396 L 0,276 L 180,315 L 360,246 L 540,226 L 720,274 L 900,377 L 1080,330 L 1080,396 L 1080,720 Z" fill="#245151" opacity="0.7"/>
+  <path d="M 0,720 L 0,489 L 0,428 L 154,475 L 308,436 L 462,433 L 616,412 L 770,424 L 924,390 L 1078,473 L 1080,489 L 1080,720 Z" fill="#1d4242" opacity="0.85"/>
+  <path d="M 0,720 L 0,590 L 0,562 L 135,539 L 270,527 L 405,567 L 540,514 L 675,542 L 810,587 L 945,584 L 1080,523 L 1080,590 L 1080,720 Z" fill="#1a3a3a"/>
+  <rect x="0" y="0" width="1080" height="720" fill="url(#sky)" opacity="0"/>
+  <text x="540" y="670" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600"
+        fill="#fff" opacity="0.92" style="paint-order:stroke;stroke:#000;stroke-width:3px;stroke-opacity:0.45">
+    Waterfall canyon
+  </text>
+</svg>

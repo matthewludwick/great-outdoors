@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Trails — The Great Outdoors</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="search-page-head">
+      <div class="container-7xl">
+        <h1>Find Your Next Trail</h1>
+        <div class="search-page-row">
+          <div class="search-input-wrap">
+            <span class="icon-left" id="search-icon" aria-hidden="true"></span>
+            <input id="search-input" class="search-input search-input-light" type="text"
+                   placeholder="Search by name, location, features…" autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="filter-toggle" type="button">
+            <span id="filter-icon" aria-hidden="true"></span>
+            <span>Filters</span>
+            <span class="filter-badge" id="filter-badge" hidden>0</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-7xl search-layout">
+      <!-- Filter sidebar -->
+      <aside class="filter-sidebar" id="filter-sidebar">
+        <div class="filter-section">
+          <h3>Sort by</h3>
+          <select id="sort-select" class="sort-select">
+            <option value="default">Hidden Gems first</option>
+            <option value="name-asc">Name (A–Z)</option>
+            <option value="rating-desc">Rating (high to low)</option>
+            <option value="distance-asc">Distance (short to long)</option>
+            <option value="distance-desc">Distance (long to short)</option>
+            <option value="elev-asc">Elevation (low to high)</option>
+            <option value="elev-desc">Elevation (high to low)</option>
+            <option value="difficulty-asc">Difficulty (easy first)</option>
+            <option value="difficulty-desc">Difficulty (hard first)</option>
+          </select>
+        </div>
+
+        <div class="filter-section">
+          <h3>Difficulty</h3>
+          <label class="check-row"><input type="checkbox" data-filter="difficulty" value="Easy">     <span class="diff-pill diff-Easy">Easy</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="difficulty" value="Moderate"> <span class="diff-pill diff-Moderate">Moderate</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="difficulty" value="Hard">     <span class="diff-pill diff-Hard">Hard</span></label>
+        </div>
+
+        <div class="filter-section">
+          <h3>Route type</h3>
+          <label class="check-row"><input type="checkbox" data-filter="routeType" value="Loop">       <span>Loop</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="routeType" value="Out & Back"> <span>Out &amp; Back</span></label>
+        </div>
+
+        <div class="filter-section">
+          <h3>Distance (mi)</h3>
+          <div class="range-row">
+            <input type="number" id="dist-min" min="0" max="20" step="0.1" placeholder="min">
+            <span>to</span>
+            <input type="number" id="dist-max" min="0" max="20" step="0.1" placeholder="max">
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3>Elevation gain (ft)</h3>
+          <div class="range-row">
+            <input type="number" id="elev-min" min="0" step="100" placeholder="min">
+            <span>to</span>
+            <input type="number" id="elev-max" min="0" step="100" placeholder="max">
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3>Tags</h3>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="hidden-gem">      <span>Hidden Gem</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="water">          <span>Lakes / Water</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="views">          <span>Mountain views</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="forest">         <span>Old-growth forest</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="wildflowers">    <span>Wildflowers</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="family">         <span>Family-friendly</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="quiet">          <span>Quiet / Remote</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="photography">    <span>Photography</span></label>
+          <label class="check-row"><input type="checkbox" data-filter="tag" value="historic">       <span>Historic site</span></label>
+        </div>
+
+        <div class="filter-section">
+          <button class="btn btn-outline btn-block" id="clear-filters" type="button">Clear filters</button>
+        </div>
+      </aside>
+
+      <!-- Results area -->
+      <section class="search-results">
+        <div class="search-results-head">
+          <h2 id="results-count">Loading…</h2>
+          <div class="view-toggle">
+            <button class="view-toggle-btn active" data-view="list" type="button" aria-label="List view">
+              <span id="ic-list" aria-hidden="true"></span>
+            </button>
+            <button class="view-toggle-btn" data-view="grid" type="button" aria-label="Grid view">
+              <span id="ic-grid" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+
+        <div id="results-host"></div>
+
+        <!-- Donation footer -->
+        <div class="search-donate-box">
+          <div>
+            <h3>Enjoying the trail finder?</h3>
+            <p>Help us keep it free and ad-free for everyone.</p>
+          </div>
+          <a class="btn btn-primary" id="donate-btn" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">
+            <span id="ic-heart" aria-hidden="true"></span>
+            <span>Donate</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/trails.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

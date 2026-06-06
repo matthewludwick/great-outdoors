@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — The Great Outdoors</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="login-wrap">
+    <div class="login-card-outer">
+      <a class="login-back" href="index.html">
+        <span id="ic-arrow" aria-hidden="true"></span> Back to Home
+      </a>
+
+      <div class="login-head">
+        <span class="logo" id="ic-logo" aria-hidden="true"></span>
+        <h1>Welcome Back</h1>
+        <p>Sign in to access your trail account</p>
+      </div>
+
+      <div class="login-card">
+        <form id="login-form">
+          <div class="field">
+            <label for="username">Username</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-user" aria-hidden="true"></span>
+              <input id="username" name="username" class="input with-icon" type="text" required placeholder="Enter your username" autocomplete="username">
+            </div>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <span class="icon-left" id="ic-lock" aria-hidden="true"></span>
+              <input id="password" name="password" class="input with-icon" type="password" required placeholder="Enter your password" autocomplete="current-password">
+            </div>
+          </div>
+          <div id="error" class="error-banner" style="display:none"></div>
+          <button class="btn btn-primary btn-block btn-large" type="submit">Sign In</button>
+        </form>
+
+        <div class="demo-accounts">
+          <p>Demo Accounts:</p>
+          <div class="acct">
+            <div class="lab">User Account</div>
+            <div>Username: <code>user</code></div>
+            <div>Password: <code>user123</code></div>
+          </div>
+          <div class="acct">
+            <div class="lab">Admin Account</div>
+            <div>Username: <code>admin</code></div>
+            <div>Password: <code>admin123</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
