@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a7d7d"/>
+      <stop offset="100%" stop-color="#428f8f"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff9e6" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ffe4a3" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd47a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="900" fill="url(#sky)"/>
+  <circle cx="1120" cy="154" r="120" fill="url(#sun)"/>
+  <circle cx="1120" cy="154" r="42" fill="#fff8dc" opacity="0.85"/>
+  <path d="M 0,900 L 0,495 L 0,337 L 320,340 L 640,400 L 960,469 L 1280,470 L 1600,437 L 1920,353 L 1920,495 L 1920,900 Z" fill="#15403a" opacity="0.7"/>
+  <path d="M 0,900 L 0,612 L 0,565 L 274,532 L 548,512 L 822,552 L 1096,566 L 1370,520 L 1644,476 L 1918,599 L 1920,612 L 1920,900 Z" fill="#113430" opacity="0.85"/>
+  <path d="M 0,900 L 0,738 L 0,680 L 240,683 L 480,665 L 720,647 L 960,671 L 1200,697 L 1440,645 L 1680,694 L 1920,718 L 1920,738 L 1920,900 Z" fill="#0f2e2a"/>
+  <rect x="0" y="0" width="1920" height="900" fill="url(#sky)" opacity="0"/>
+  <text x="960" y="850" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600"
+        fill="#fff" opacity="0.92" style="paint-order:stroke;stroke:#000;stroke-width:3px;stroke-opacity:0.45">
+    Pacific Northwest
+  </text>
+</svg>
