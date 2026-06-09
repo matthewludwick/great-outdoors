@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ic-arrow').innerHTML = sizeIcon('arrowLeft', 16);
-  document.getElementById('ic-logo').innerHTML  = sizeIcon('shield', 32);
+  document.getElementById('outdoor_logo').innerHTML = sizeIcon('mountain',32);
   document.getElementById('ic-user').innerHTML  = sizeIcon('user', 20);
   document.getElementById('ic-lock').innerHTML  = sizeIcon('lock', 20);
 

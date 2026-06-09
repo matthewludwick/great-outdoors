@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Render icons
   document.getElementById('ic-arrow').innerHTML      = sizeIcon('arrowLeft', 16);
-  document.getElementById('ic-logo').innerHTML       = sizeIcon('shield', 32);
   document.getElementById('ic-user-first').innerHTML = sizeIcon('user', 20);
   document.getElementById('ic-user').innerHTML       = sizeIcon('user', 20);
   document.getElementById('ic-mail').innerHTML       = sizeIcon('mail', 20);
@@ -9,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ic-pin').innerHTML        = sizeIcon('mapPin', 20);
   document.getElementById('ic-lock').innerHTML       = sizeIcon('lock', 20);
   document.getElementById('ic-lock2').innerHTML      = sizeIcon('lock', 20);
+  document.getElementById('outdoor_logo').innerHTML  = sizeIcon('mountain',32);
 
   // If already logged in, go home
   if (Auth.user()) {
