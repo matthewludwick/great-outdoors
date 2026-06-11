@@ -479,6 +479,9 @@ function renderHeader() {
           Safety &amp; Leave No Trace
         </a>
 
+        <a href="forum.html">
+          Community Forum
+        </a>
         <a href="about.html">
           About Us
         </a>
