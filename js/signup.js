@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const state     = document.getElementById('state').value.trim().toUpperCase();
     const password  = document.getElementById('password').value;
     const confirm   = document.getElementById('confirm-password').value;
+    const accepted  = document.getElementById('accept-terms').checked;
 
     // Validation
     if (!firstName || !lastName)  { showError('Please enter your first and last name.'); return; }
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!password)                 { showError('Please create a password.'); return; }
     if (password.length < 6)       { showError('Password must be at least 6 characters.'); return; }
     if (password !== confirm)      { showError('Passwords do not match.'); return; }
+    if (!accepted)                 { showError('Please accept the terms of service and privacy policy.'); return; }
 
     // Username uniqueness
     const existing = Auth.registeredUsers();

@@ -579,6 +579,94 @@ function mountChrome() {
   if (footerHost) {
     footerHost.outerHTML = renderFooter();
   }
+
+  setupTermsModal();
+}
+
+function setupTermsModal() {
+  if (document.getElementById('termsModal')) return;
+
+  const modalHTML = `
+    <div id="termsModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
+        <div style="background-color: #fff; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: sans-serif; line-height: 1.6;">
+            <h3 style="margin-top: 0; color: #2d3748;">The Great Outdoors — Terms of Use</h3>
+            <p style="color: #4a5568; font-size: 14px;">By continuing, you agree to follow our community guidelines, respect trail etiquette, practice Leave No Trace principles, and accept our terms of service.</p>
+            <div style="margin: 20px 0;">
+                <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #2d3748;">
+                    <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px; transform: scale(1.2);">
+                    I agree to the Terms of Service and Privacy Policy
+                </label>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button id="cancelBtn" style="padding: 8px 16px; background: #e2e8f0; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; color: #4a5568;">Cancel</button>
+                <button id="continueBtn" style="padding: 8px 16px; background: #2b6cb0; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; color: #fff; opacity: 0.5;" disabled>Continue</button>
+            </div>
+        </div>
+    </div>`;
+
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  const modal = document.getElementById('termsModal');
+  const checkbox = document.getElementById('agreeCheckbox');
+  const continueBtn = document.getElementById('continueBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  if (!modal || !checkbox || !continueBtn || !cancelBtn) return;
+
+  let pendingAction = null;
+  let allowAccountClick = false;
+
+  const updateContinueState = () => {
+    continueBtn.disabled = !checkbox.checked;
+    continueBtn.style.opacity = checkbox.checked ? '1' : '0.5';
+  };
+
+  checkbox.addEventListener('change', updateContinueState);
+
+  const triggerModal = (e, callback) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    pendingAction = callback;
+    checkbox.checked = false;
+    updateContinueState();
+    modal.style.display = 'flex';
+  };
+
+  const accountBtn = document.getElementById('nav-account-btn');
+  if (accountBtn && !Auth.user()) {
+    accountBtn.addEventListener('click', (e) => {
+      if (allowAccountClick) {
+        allowAccountClick = false;
+        return;
+      }
+      triggerModal(e, () => {
+        allowAccountClick = true;
+        accountBtn.click();
+      });
+    }, true);
+  }
+
+  const donateTarget = Array.from(document.querySelectorAll('a, button')).find(el => el.textContent.trim() === 'Make a Donation');
+  if (donateTarget) {
+    donateTarget.addEventListener('click', (e) => {
+      triggerModal(e, () => {
+        const href = donateTarget.getAttribute('href');
+        if (href) window.location.href = href;
+      });
+    });
+  }
+
+  continueBtn.addEventListener('click', () => {
+    if (checkbox.checked && pendingAction) {
+      modal.style.display = 'none';
+      pendingAction();
+      pendingAction = null;
+    }
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    pendingAction = null;
+  });
 }
 
 /* ---------- Helpers ---------- */
